@@ -18,7 +18,9 @@ bootstrapRichness <- function(Community, numBoot = 100){
 #                                     values = individual counts
 # Whalen update 9 April 2023
   # - remove Clustering calculations
-  # -
+  # - add estimators Gamma Poisson and edited Omega estimates
+# Whalen update 24 May 2023
+  # - fixing minor errors in preparation for paper release
 
 
 # Get point estimates from original dataset
@@ -32,13 +34,13 @@ varn <- function(x) mean((x-mean(x))^2)
 
 
 # store bootstrapped estimates for raw richness and each estimator
-expectedRichness_raw = rep(0,numBoot)    # raw
+expectedRichness_raw   = rep(0,numBoot)  # raw richness
 expectedChao1 = rep(0,numBoot)           # Chao1
 expectedGP    = rep(0,numBoot)           # Gamma-Poisson
 expectedChao2 = rep(0,numBoot)           # Chao2
 expectedACE   = rep(0,numBoot)           # ACE
-expectedJK_a = rep(0,numBoot)           # Jackknife (abundance)
-expectedJK_i = rep(0,numBoot)           # Jackknife (incidence)
+expectedJK_a  = rep(0,numBoot)           # Jackknife (abundance)
+expectedJK_i  = rep(0,numBoot)           # Jackknife (incidence)
 expectedOmega = rep(0,numBoot)           # approximate Omega richness
 expectedOmega_taylor   = rep(0,numBoot)  # approximated Omega richness using Taylor expansion
 expectedOmega_taylor_0 = rep(0,numBoot)  # approximated Omega richness using the first correction term

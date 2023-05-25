@@ -23,7 +23,7 @@ RichnessEsts <- function( Community ){
     # - Omega_T - uses Taylor approximation
 # Whalen last update 9 April 2023
   # - remove Clustering calculations
-  # - add third Omega calculation (Omega, Omega_T, Omega_0)
+  # - add third Omega calculation (Omega, Omega_T, Omega_0 in all)
   # - add another estimator (Gamma Poisson)
 
 
@@ -125,7 +125,7 @@ if( m == 1){
 }
 
 
-# compute correction terms for proposed approximation method
+# compute correction terms for Omega_T
 k  = numTrans
 nm = mean_n_m_detected
 P  = mean_P_detected
@@ -156,10 +156,10 @@ meanStates = c(mean_n_m_detected,mean_P_detected,
                 cov_nm_P_detected )
 
 
-# compute Omega_o
+# compute Omega
 nm = n_m_detected
 P = na.omit(P_detected)
-D_means = eval(Di)
+D_means = eval(Di) # observation process model for each detected species
 D_mean = mean(D_means, na.rm = T)
 Omega = Richness_raw/D_mean
 

@@ -29,7 +29,7 @@ estimate_richness(Community, boot = FALSE, numBoot = 100,
 %% ...
 }
 \references{
-Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. \emph{Philosophical Transactions of the Royal Society B.} \doi{}
+Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. \emph{Philosophical Transactions of the Royal Society B.} \doi{10.1098/rstb.2022.0181.2022-0187}
 }
 \author{
 E.W. Tekwa and M.A. Whalen
@@ -45,6 +45,11 @@ E.W. Tekwa and M.A. Whalen
 }
 
 \examples{
+## install the package
+require(devtools)
+install_github("EWTekwa/Richness")
+library(Richness)
+
 ## Use Barro Colorado Island data from the vegan package
 require(vegan)
 data("BCI")
