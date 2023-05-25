@@ -27,11 +27,10 @@ A data frame of dimensions c(\code{numBoot}, 8), where the columns represent the
 Note that the first row contains point estimates calculated using \code{\link{RichnessEsts}}.
 }
 \references{
-Tekwa, E.W., Whalen, M.W., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. in revision.
-%% \emph{Philosophical Transactions of the Royal Society B.} \doi{}
+Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. \emph{Philosophical Transactions of the Royal Society B.} \doi{}
 }
 \author{
-E.W. Tekwa and Matt Whalen
+E.W. Tekwa and M.A. Whalen
 }
 \note{
 %%  ~~further notes~~
@@ -40,6 +39,11 @@ E.W. Tekwa and Matt Whalen
  \code{\link{estimateRichness}}, \code{\link{RichnessEsts}}.
 }
 \examples{
+## install the package
+require(devtools)
+install_github("EWTekwa/Richness")
+library(Richness)
+
 ## Use Barro Colorado Island data from the vegan package
 require(vegan)
 data("BCI")

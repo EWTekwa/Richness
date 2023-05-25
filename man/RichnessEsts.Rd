@@ -5,7 +5,7 @@
 %%  ~~function to do ... ~~
 }
 \description{
-This function takes spatial abundance data and returns several richness estimates, including two defined by Tekwa et al. 2023.  In addition to richness point estimates, the function returns mean states of correction terms and approximated detection probabilities used in Tekwa's estimation method.
+This function takes spatial abundance data and returns several richness estimates, including three defined by Tekwa et al. 2023.  In addition to richness point estimates, the function returns mean states of correction terms and approximated detection probabilities used in Tekwa's estimation method.
 }
 \usage{
 RichnessEsts(Community)
@@ -20,15 +20,14 @@ RichnessEsts(Community)
 \value{
 A list of 3 elements.
 \item{element1 }{point estimates for all richness estimators.}
-\item{element2 }{mean states of the correction terms for \eqn{\Omega{T}} and \eqn{\Omega{0}}.}
-\item{element3 }{approximated detection probabilities for \eqn{\Omega{T}} and \eqn{\Omega{0}}.}
+\item{element2 }{mean states of the correction terms for \eqn{\Omega}, \eqn{\Omega{T}}, and \eqn{\Omega{T0}}.}
+\item{element3 }{approximated detection probabilities for \eqn{\Omega}, \eqn{\Omega{T}}, and \eqn{\Omega{T0}}.}
 }
 \references{
-Tekwa, E.W., Whalen, M.W., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. in revision.
-%% \emph{Philosophical Transactions of the Royal Society B.} \doi{}
+Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. \emph{Philosophical Transactions of the Royal Society B.} \doi{}
 }
 \author{
-E.W. Tekwa and Matt Whalen
+E.W. Tekwa and M.A. Whalen
 }
 \note{
 %%  ~~further notes~~

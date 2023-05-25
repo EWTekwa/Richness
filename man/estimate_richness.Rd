@@ -29,11 +29,10 @@ estimate_richness(Community, boot = FALSE, numBoot = 100,
 %% ...
 }
 \references{
-Tekwa, E.W., Whalen, M.W., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. in revision.
-%% \emph{Philosophical Transactions of the Royal Society B.} \doi{}
+Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. \emph{Philosophical Transactions of the Royal Society B.} \doi{}
 }
 \author{
-E.W. Tekwa and Matt Whalen
+E.W. Tekwa and M.A. Whalen
 }
 \note{
 %%  ~~further notes~~

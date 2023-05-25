@@ -37,11 +37,11 @@ expectedChao1 = rep(0,numBoot)           # Chao1
 expectedGP    = rep(0,numBoot)           # Gamma-Poisson
 expectedChao2 = rep(0,numBoot)           # Chao2
 expectedACE   = rep(0,numBoot)           # ACE
-expectedS_aj2 = rep(0,numBoot)           # Jackknife (abundance)
-expectedS_ij2 = rep(0,numBoot)           # Jackknife (incidence)
+expectedJK_a = rep(0,numBoot)           # Jackknife (abundance)
+expectedJK_i = rep(0,numBoot)           # Jackknife (incidence)
 expectedOmega = rep(0,numBoot)           # approximate Omega richness
 expectedOmega_taylor   = rep(0,numBoot)  # approximated Omega richness using Taylor expansion
-expectedOmgea_taylor_0 = rep(0,numBoot)  # approximated Omega richness using the first correction term
+expectedOmega_taylor_0 = rep(0,numBoot)  # approximated Omega richness using the first correction term
 
 
 
@@ -58,7 +58,7 @@ numSamplingUnit = nrow(Community)
 
 
 # bootstrapping - scramble sampling units and resample
-for( resample in 2:numBoot ){
+for( resample in 1:numBoot ){
   #  scramble sampling units (e.g., transects) first
     sampleSet_init = Community[ sample(1:numSamplingUnit,numSamplingUnit,replace = T), ]
 
@@ -68,8 +68,8 @@ for( resample in 2:numBoot ){
     sampleSetGP    = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$GP),replace = T) ]
     sampleSetChao2 = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$Chao2),replace = T) ]
     sampleSetACE   = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$ACE),replace = T) ]
-    sampleSetJK_a  = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$S_aj2),replace = T) ]
-    sampleSetJK_i  = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$S_ij2),replace = T) ]
+    sampleSetJK_a  = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$JK_a),replace = T) ]
+    sampleSetJK_i  = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$JK_i),replace = T) ]
     sampleSetOmega          = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$Omega),replace = T) ]
     sampleSetOmega_taylor   = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$Omega_taylor),replace = T) ]
     sampleSetOmega_taylor_0 = sampleSet_init[ ,sample(1:pointests$Richness_raw,round(pointests$Omega_taylor_0),replace = T) ]
@@ -117,9 +117,9 @@ for( resample in 2:numBoot ){
       f0Chao1 = f1c*(f1c-1)/2
     }
     if( A < 1 ){
-      GP_boot = Richness_raw + f0Chao1*max(c(.5, A))
+      GP_boot = Richness_raw_boot + f0Chao1*max(c(.5, A))
     } else {
-      GP_boot = Richness_raw + f0Chao1
+      GP_boot = Richness_raw_boot + f0Chao1
     }
 
     # compute Chao2 estimate
@@ -162,9 +162,9 @@ for( resample in 2:numBoot ){
     q2 = sum(colSums(sampleSetJK_i > 0) == 2) # number of species occurring in two transect only
     m = sum(colSums(sampleSetJK_i > 0))
     if( m == 1){
-      JK_i_boot = raw
+      JK_i_boot = rawli
     } else {
-      JK_i = raw + (q1*(2*m-3)/m-q2*((m-2)^2)/(m*(m-1)))
+      JK_i_boot = raw + (q1*(2*m-3)/m-q2*((m-2)^2)/(m*(m-1)))
     }
 
     # Omega_taylor
@@ -237,8 +237,8 @@ for( resample in 2:numBoot ){
     expectedGP[resample]    = GP_boot
     expectedChao2[resample] = Chao2_boot
     expectedACE[resample]   = ACE_boot
-    expectedS_aj2[resample] = S_aj2_boot
-    expectedS_ij2[resample] = S_ij2_boot
+    expectedJK_a[resample] = JK_a_boot
+    expectedJK_i[resample] = JK_i_boot
     expectedOmega[resample] = Omega_boot
     expectedOmega_taylor[resample]   = Omega_taylor_boot
     expectedOmega_taylor_0[resample] = Omega_taylor_0_boot
@@ -248,8 +248,9 @@ for( resample in 2:numBoot ){
 
 
 return(data.frame(Richness_raw = expectedRichness_raw,
-            Omega_T = expectedRichness_Omega_T,
-            Omega_0 = expectedRichness_Omega_0,
+            Omega = expectedOmega,
+            Omega_T = expectedOmega_taylor,
+            Omega_T0 = expectedOmega_taylor_0,
             Chao1 = expectedChao1, Chao2 = expectedChao2,
-            ACE = expectedACE, S_aj2 = expectedS_aj2, S_ij2 = expectedS_ij2))
+            ACE = expectedACE, JK_a = expectedJK_a, JK_i = expectedJK_i))
 }
