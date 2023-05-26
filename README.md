@@ -1,17 +1,27 @@
 # Richness
+
 R-package "Richness" for asymptotic species richness estimates
+
 Eden Tekwa and Matt Whalen
 
 Version: 1.1
+
 Depends: R 4.2.2
+
 Published: 2023-04-27
+
 Last update: 2023-05-26
+
 Authors: Matt Whalen and Eden Tekwa
-Maintainers: Matt Whalen (mawhal@gmail.com)
+
+Maintainers: Matt Whalen (mawhal@gmail.com),
 Eden Tekwa (ewtekwa@gmail.com)
+
 License:
 CC BY-NC-SA
+
 URL: https://github.com/EWTekwa/Richness
+
 Citation: 
 Tekwa, Whalen, Martone, O’Connor, Theory and application of an improved species richness estimator 2023. Philosophical Transactions of the Royal Society B. https://doi.org/10.1098/rstb.2022.0181.2022-0187
 
@@ -25,7 +35,6 @@ The wrapper function calls two functions RichnessEsts.R and bootstrapRichness.R 
 See "R package Richness Documentation.pdf" for installation and operation in R.
 See /Matlab subfolder for Matlab code.
 
-Citation:	Tekwa, Whalen, Martone, O’Connor, Theory and application of an improved species richness estimator 2023. Philosophical Transactions B. 10.1098/rstb.2022.0181.2022-0187.
 
 # Installation
 To download package in R, type:

@@ -19,7 +19,7 @@ RichnessEsts(Community)
 }
 \value{
 A list of 3 elements.
-\item{element1 }{point estimates for all richness estimators.}
+\item{element1 }{point estimates for all richness estimators. Estimators include raw richness, Chao1, Gamma-Poisson, Chao2, ACE, Jackknife-abundance, Jackknife-incidence, \eqn{\Omega}, \eqn{\Omega{T}}, \eqn{\Omega{T0}}.}
 \item{element2 }{mean states of the correction terms for \eqn{\Omega}, \eqn{\Omega{T}}, and \eqn{\Omega{T0}}.}
 \item{element3 }{approximated detection probabilities for \eqn{\Omega}, \eqn{\Omega{T}}, and \eqn{\Omega{T0}}.}
 }
@@ -30,7 +30,20 @@ Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and ap
 E.W. Tekwa and M.A. Whalen
 }
 \note{
-%%  ~~further notes~~
+References for Chao1, Gamma-Poisson, Chao2, ACE, and Jackknife richness estimators:
+
+Chao A. 1984. Nonparametric estimation of the number of classes in a population. Scandinavian J. Stat. 11, 265–270. https://www.jstor.org/stable/4615964
+
+Chiu CH. 2023. A more reliable species richness estimator based on the
+Gamma–Poisson model. PeerJ 11, e14540. \doi{10.7717/peerj.14540}
+
+Chao A. 1987 Estimating the population size for capture-recapture data with unequal catchability. Biometrics 43, 783–791. \doi{10.2307/2531532}
+
+Chao A, Lee SM. 1992 Estimating the number of classes via sample coverage.
+J. Am. Stat. Assoc. 87, 210–217. \doi{10.1080/01621459.1992.10475194}
+
+Burnham KP, Overton WS. 1979. Robust estimation of population size when capture probabilities vary among animals. Ecology 60, 927–936. \doi{10.2307/1936861}
+
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
