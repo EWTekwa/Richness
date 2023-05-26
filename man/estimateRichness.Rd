@@ -1,5 +1,5 @@
-\name{estimate_richness}
-\alias{estimate_richness}
+\name{estimateRichness}
+\alias{estimateRichness}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Estimate Richness in Community Data}
 \description{
@@ -7,7 +7,7 @@
 A wrapper function that runs \code{RichnessEsts} or  \code{bootRichnessEsts} using a variety of data input types, including time series community data.
 }
 \usage{
-estimate_richness(Community, boot = FALSE, numBoot = 100,
+estimateRichness(Community, boot = FALSE, numBoot = 100,
                              meanStates = FALSE, Apx_detectP_terms = FALSE )
 }
 %- maybe also 'usage' for other objects documented here.
@@ -56,12 +56,12 @@ data("BCI")
 
 ## run the function for a single community data frame without bootstrapping
 # point estimates only
-estimate_richness(BCI)
+estimateRichness(BCI)
 # with mean states for correction terms and approximated detection probabilities
-estimate_richness(BCI, meanStates = TRUE, Apx_detectP_terms = TRUE)
+estimateRichness(BCI, meanStates = TRUE, Apx_detectP_terms = TRUE)
 
 ## run the function for a single community data frame with bootstrapping
-estimate_richness(BCI, boot = TRUE, numBoot = 10)
+estimateRichness(BCI, boot = TRUE, numBoot = 10)
 
 ## run the function on a list
 # Note: this may not be the most sensible comparison
@@ -69,9 +69,9 @@ require(vegan)
 data("pyrifos")
 week <- gl(11, 12, labels = c(-4, -1, 0.1, 1, 2, 4, 8, 12, 15, 19, 24))
 communitylist <- split(pyrifos, f = week)
-estimate_richness(communitylist)
+estimateRichness(communitylist)
 # bootstrapping on a list returns a tidy data frame
 require(tidyverse)
-estimate_richness(communitylist, boot = TRUE, numBoot = 10)
+estimateRichness(communitylist, boot = TRUE, numBoot = 10)
 }
 
