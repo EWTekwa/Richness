@@ -1,11 +1,19 @@
 Package: Richness
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Title: Asymptotic estimations of species richness from spatial abundance data
+Version: 1.1.0
+Authors@R: 
+    c( 
+	person("Eden", "Tekwa", email = "ewtekwa@gmail.com", role = c("aut"),comment = c(ORCID = "0000-0003-2971-6128")), 
+	person("Matt", "Whalen", email = "mawhal@gmail.com", role = c("aut", "cre"),comment = c(ORCID = "0000-0002-5262-6131")) )
+Maintainer: Matt Whalen <mawhal@gmail.com>
+Description: This R package uses spatial abundance data to produce
+     estimated species richness and estimator precision while
+     correcting for observation biases from low occupancies and
+     abundances.
 License: What license is it under?
+Suggests:
+    tidyverse,
+    vegan    
 Encoding: UTF-8
 LazyData: true
