@@ -27,18 +27,22 @@ RichnessEsts <- function( Community ){
   # - add another estimator (Gamma Poisson)
 
 
-# define variance function with normalization of n rather than n-1
-varn <- function(x) mean((x-mean(x))^2)
 
 # # write observational process model
-# Dix = (1-exp(-C*nm))*P # local detection probability of species i at sampled site x
+# Dix = 1-exp(-nm/P) # local detection probability of species i at sampled site x
+# Dix = Dixo*P
 # Di = 1-(1-Dix)^k # detection probability of species i across all sampled sites x in community s
-Di = expression( 1-(1-((1-exp(-nm))*P))^k )
+Di = expression( 1-(1-((1-exp(-nm/P))*P))^k )
 
-# second-order derivatives
-d2Di_dnm2 = D(D( Di, "nm" ), "nm")
-d2Di_dP2  = D(D( Di, "P" ), "P")
-d2Di_dnmP = D(D( Di, "nm" ), "P")
+# # second-order derivatives
+# d2Di_dnm2 = D(D( Di, "nm" ), "nm")
+# d2Di_dP2  = D(D( Di, "P" ), "P")
+# d2Di_dnmP = D(D( Di, "nm" ), "P")
+
+# hard code second-order derivatives above for speed
+d2Di_dmn2 = - (k*exp(-mn/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 1))/P - k*exp(-(2*mn)/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 2)*(k - 1)
+d2Di_dP2 = - k*(P*(exp(-mn/P) - 1) + 1)^(k - 2)*(k - 1)*(exp(-mn/P) + (mn*exp(-mn/P))/P - 1)^2 - (k*mn^2*exp(-mn/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 1))/P^3
+d2Di_dmnP = (k*mn*exp(-mn/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 1))/P^2 + k*exp(-mn/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 2)*(k - 1)*(exp(-mn/P) + (mn*exp(-mn/P))/P - 1)
 
 
 numTrans =  nrow(Community) # get number of transects
@@ -160,7 +164,7 @@ meanStates = c(mean_n_m_detected,mean_P_detected,
 nm = n_m_detected
 P = na.omit(P_detected)
 D_means = eval(Di) # observation process model for each detected species
-D_mean = mean(D_means, na.rm = T)
+D_mean = mean(D_means)
 Omega = Richness_raw/D_mean
 
 
