@@ -22,7 +22,7 @@ estimate_richness <- function( Community, boot = F, numBoot = 100, meanStates = 
       est = do.call( rbind,lapply( Community, bootstrapRichness, numBoot = numBoot ) )
       estlong = est %>%
         mutate( id = gl( n = length(Community), k = numBoot, labels = rownames(est) ) ) %>%
-        pivot_longer( Richness_raw:S_ij2, names_to = "estimate", values_to = "richness" )
+        pivot_longer( Richness_raw:JK_i, names_to = "estimate", values_to = "richness" )
       est = estlong
     }
   } else  if( any(class(Community) == "array" & length(dim(Community)) > 2) ){ # arrays should be arrange with taxa as columns, samples as rows, and time/space in the 3rd dimension
@@ -31,17 +31,17 @@ estimate_richness <- function( Community, boot = F, numBoot = 100, meanStates = 
       est = do.call( rbind, estall[,1] )
       estlong <- est %>%
         mutate( id = as.numeric(gl( n = dim(Community)[3], k = 1 )) ) %>%
-        pivot_longer( Richness_raw:Omega_T, names_to = "estimate", values_to = "richness" )
+        pivot_longer( Richness_raw:JK_i, names_to = "estimate", values_to = "richness" )
       est = estlong
     } else {
       est = do.call( rbind,apply( Community, 3, bootstrapRichness, numBoot = numBoot ) )
       estlong = est %>%
         mutate( id = gl( n = dim(Community)[3], k = numBoot, labels = rownames(est) ) ) %>%
-        pivot_longer( Richness_raw:S_ij2, names_to = "estimate", values_to = "richness" )
+        pivot_longer( Richness_raw:JK_i, names_to = "estimate", values_to = "richness" )
       est = estlong
     }
   } else if( !(any(class(Community) %in% c("data.frame","matrix","list","array"))) ){
-    est = c("sorry, this Communityunity data does not appear to be in a supported format",
+    est = c("sorry, this Community data does not appear to be in a supported format",
             "try coercing the data to a matrix, data.frame, list, or array with species as columns and spatial sampling units as rows" )
   }
       return(est)
