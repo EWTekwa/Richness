@@ -1,17 +1,21 @@
 bootstrapRichness <- function(Community, numBoot = 100){
 
-# bootRichnessEsts.m
-# Ed Tekwa Feb 8, 2022
-# bootRichnessEsts.R
-# Matt Whalen rewrote original matlab script for R - Mar 27, 2022
-# function several estimates of richness:
-#  - raw richness
-#  - newly proposed method
-#  - Chao1
-#  - Chao2
-#  - Abundance-based coverage estimator (ACE)
-#  - Jackknife abundance estimator
-#  - Jackknife incidence estimator
+# bootstrapRichness.R is based on bootRichnessEsts.m
+  # Matt Whalen rewrote matlab script for R - started Mar 27, 2022
+  # function calculates several estimates of richness:
+  # - raw richness
+  # - newly proposed method
+  # - Chao1
+  # - Gamma-Poisson
+  # - Chao2
+  # - Abundance-based coverage estimator (ACE)
+  # - Jackknife abundance estimator
+  # - Jackknife incidence estimator
+  # - three versions of the estimator introduced in Tekwa et al. 2023
+    # - Omega - exact estimator, recommended version
+    # - Omega_T - second-order Taylor approximated estimator, useful for quantifying biases from means and variances in occupancy and observed abundance across species
+    # - Omega_not - zeroth-order approximated estimator
+
 # Point estimates are calculated using script "RichnessEsts.R"
 # This script calculates bootstrapped confidence intervals
 # the spatial Community data: rows = transects, columns = species,
