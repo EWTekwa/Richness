@@ -1,7 +1,7 @@
 # a wrapper function allowing mutliple data input types and choice of wheter to output point estimes or bootstrapped estimates
 # created by Matt Whalen
 # last update 27 Jan 2023
-estimate_richness <- function( Community, boot = F, numBoot = 100, meanStates = F, Apx_detectP_terms = F ){
+estimateRichness <- function( Community, boot = F, numBoot = 100, meanStates = F, Apx_detectP_terms = F ){
   if( any(class(Community) %in% c("data.frame","matrix")) ){ # note that mean states and approximated detection probability terms are only currently available when estimating single Communities (i.e., no time series or comparison of independent Communities across space)
     if( boot == T ){
       est = bootstrapRichness( Community, numBoot = numBoot )
