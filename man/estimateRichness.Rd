@@ -4,7 +4,7 @@
 \title{Estimate Richness in Community Data}
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-A wrapper function that runs \code{RichnessEsts} or  \code{bootRichnessEsts} using a variety of data input types, including time series community data.
+A wrapper function that runs \code{RichnessEsts} or  \code{bootstrapRichness} using a variety of data input types, including time series community data.
 }
 \usage{
 estimateRichness(Community, boot = FALSE, numBoot = 100,
@@ -30,6 +30,20 @@ estimateRichness(Community, boot = FALSE, numBoot = 100,
 }
 \references{
 Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. \emph{Philosophical Transactions of the Royal Society B.} \doi{10.1098/rstb.2022.0181.2022-0187}
+
+References for Chao1, Gamma-Poisson, Chao2, ACE, and Jackknife richness estimators:
+
+Chao A. 1984. Nonparametric estimation of the number of classes in a population. \emph{Scandinavian J. Stat.} 11, 265–270. https://www.jstor.org/stable/4615964
+
+Chiu CH. 2023. A more reliable species richness estimator based on the
+Gamma–Poisson model. \emph{PeerJ.} 11, e14540. \doi{10.7717/peerj.14540}
+
+Chao A. 1987 Estimating the population size for capture-recapture data with unequal catchability. \emph{Biometrics.} 43, 783–791. \doi{10.2307/2531532}
+
+Chao A, Lee SM. 1992 Estimating the number of classes via sample coverage.
+\emph{J. Am. Stat. Assoc.} 87, 210–217. \doi{10.1080/01621459.1992.10475194}
+
+Burnham KP, Overton WS. 1979. Robust estimation of population size when capture probabilities vary among animals. \emph{Ecology.} 60, 927–936. \doi{10.2307/1936861}
 }
 \author{
 E.W. Tekwa and M.A. Whalen
