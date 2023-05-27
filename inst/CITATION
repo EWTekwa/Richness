@@ -1,0 +1,12 @@
+## Scholarly publication
+bibentry(bibtype = "Article",
+         title = "Theory and application of an improved species richness estimator",
+         author = c(person(c("E.W."), "Tekwa"),
+                    person(c("M.A."), "Whalen"),
+                    person(c("P.T."), "Martone"),
+                    person(c("M.I."), "O'Connor")),
+         year = "2023", journal = "Proceedings of the Royal Society B", 
+         doi = "10.1098/rstb.2022.0181.2022-0187")
+
+## R package reference generated from DESCRIPTION metadata
+citation(auto = meta)
