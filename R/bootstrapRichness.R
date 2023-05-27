@@ -53,10 +53,30 @@ expectedOmega_taylor_0 = rep(0,numBoot)  # approximated Omega richness using the
 
 # write observational process model
 Di <- expression( 1-(1-((1-exp(-nm))*P))^k )
-# second-order derivatives
-d2Di_dnm2 <- D(D( Di, "nm" ), "nm")
-d2Di_dP2  <- D(D( Di, "P" ), "P")
-d2Di_dnmP  <- D(D( Di, "nm" ), "P")
+## second-order derivatives
+# d2Di_dnm2 <- D(D( Di, "nm" ), "nm")
+# d2Di_dP2  <- D(D( Di, "P" ), "P")
+# d2Di_dnmP  <- D(D( Di, "nm" ), "P")
+## hard code second-order derivatives above for speed
+d2Di_dnm2 = expression( -((1 - ((1 - exp(-nm/P)) * P))^(k - 1) *
+                            (k * (exp(-nm/P) * (1/P) * (1/P) * P)) +
+                            (1 - ((1 - exp(-nm/P)) * P))^((k - 1) - 1) *
+                            ((k - 1) * (exp(-nm/P) * (1/P) * P)) *
+                            (k * (exp(-nm/P) * (1/P) * P))) )
+d2Di_dP2  = expression( -((1 - ((1 - exp(-nm/P)) * P))^(k - 1) *
+                            (k * (exp(-nm/P) * (nm/P^2) +
+                                    ((exp(-nm/P) * (nm/P^2) * (nm/P^2) - exp(-nm/P) *
+                                        (nm * (2 * P)/(P^2)^2)) * P + exp(-nm/P) *
+                                       (nm/P^2)))) + (1 - ((1 - exp(-nm/P)) * P))^((k - 1) - 1) *
+                            ((k - 1) * ((1 - exp(-nm/P)) - exp(-nm/P) * (nm/P^2) * P)) *
+                            (k * ((1 - exp(-nm/P)) - exp(-nm/P) * (nm/P^2) * P))))
+d2Di_dnmP = expression( (1 - ((1 - exp(-nm/P)) * P))^(k - 1) *
+                          (k * ((exp(-nm/P) * (nm/P^2) * (1/P) -
+                                   exp(-nm/P) * (1/P^2)) * P + exp(-nm/P) * (1/P))) -
+                          (1 - ((1 - exp(-nm/P)) * P))^((k - 1) - 1) *
+                          ((k - 1) * ((1 - exp(-nm/P)) - exp(-nm/P) * (nm/P^2) * P)) *
+                          (k * (exp(-nm/P) * (1/P) * P)) )
+
 
 
 # get the number of sampling units (e.g., transects or quadrats)

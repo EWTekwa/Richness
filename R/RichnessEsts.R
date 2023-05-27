@@ -23,22 +23,36 @@ RichnessEsts <- function( Community ){
 
 
 
-# # write observational process model
+## write observational process model
 # Dix = 1-exp(-nm/P) # local detection probability of species i at sampled site x
 # Dix = Dixo*P
 # Di = 1-(1-Dix)^k # detection probability of species i across all sampled sites x in community s
 Di = expression( 1-(1-((1-exp(-nm/P))*P))^k )
 
-# # second-order derivatives
+## second-order derivatives
 # d2Di_dnm2 = D(D( Di, "nm" ), "nm")
 # d2Di_dP2  = D(D( Di, "P" ), "P")
 # d2Di_dnmP = D(D( Di, "nm" ), "P")
 
 # hard code second-order derivatives above for speed
-d2Di_dnm2 = - (k*exp(-nm/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 1))/P - k*exp(-(2*nm)/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 2)*(k - 1)
-d2Di_dP2 = - k*(P*(exp(-nm/P) - 1) + 1)^(k - 2)*(k - 1)*(exp(-nm/P) + (nm*exp(-nm/P))/P - 1)^2 - (k*nm^2*exp(-nm/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 1))/P^3
-d2Di_dnmP = (k*nm*exp(-nm/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 1))/P^2 + k*exp(-nm/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 2)*(k - 1)*(exp(-nm/P) + (nm*exp(-nm/P))/P - 1)
-
+d2Di_dnm2 = expression( -((1 - ((1 - exp(-nm/P)) * P))^(k - 1) *
+                            (k * (exp(-nm/P) * (1/P) * (1/P) * P)) +
+                            (1 - ((1 - exp(-nm/P)) * P))^((k - 1) - 1) *
+                            ((k - 1) * (exp(-nm/P) * (1/P) * P)) *
+                            (k * (exp(-nm/P) * (1/P) * P))) )
+d2Di_dP2  = expression( -((1 - ((1 - exp(-nm/P)) * P))^(k - 1) *
+                            (k * (exp(-nm/P) * (nm/P^2) +
+                            ((exp(-nm/P) * (nm/P^2) * (nm/P^2) - exp(-nm/P) *
+                            (nm * (2 * P)/(P^2)^2)) * P + exp(-nm/P) *
+                            (nm/P^2)))) + (1 - ((1 - exp(-nm/P)) * P))^((k - 1) - 1) *
+                            ((k - 1) * ((1 - exp(-nm/P)) - exp(-nm/P) * (nm/P^2) * P)) *
+                            (k * ((1 - exp(-nm/P)) - exp(-nm/P) * (nm/P^2) * P))))
+d2Di_dnmP = expression( (1 - ((1 - exp(-nm/P)) * P))^(k - 1) *
+                            (k * ((exp(-nm/P) * (nm/P^2) * (1/P) -
+                                   exp(-nm/P) * (1/P^2)) * P + exp(-nm/P) * (1/P))) -
+                            (1 - ((1 - exp(-nm/P)) * P))^((k - 1) - 1) *
+                            ((k - 1) * ((1 - exp(-nm/P)) - exp(-nm/P) * (nm/P^2) * P)) *
+                            (k * (exp(-nm/P) * (1/P) * P)) )
 
 numSamplingUnit =  nrow(Community) # get number of transects
 Richness_raw = sum(colSums(Community)>0) # get raw richness
