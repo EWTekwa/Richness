@@ -1,30 +1,25 @@
 RichnessEsts <- function( Community ){
 
-# RichnessEsts.m
-# Ed Tekwa Feb 8, 2022
-# RichnessEsts.R
-# Matt Whalen rewrote original matlab script for R - Mar 27, 2022
-# function several estimates of richness:
+# RichnessEsts.R is based on RichnessEsts.m
+  # Matt Whalen rewrote matlab script for R - started Mar 27, 2022
+# function calculates several estimates of richness:
   # - raw richness
   # - newly proposed method
   # - Chao1
+  # - Gamma-Poisson
   # - Chao2
   # - Abundance-based coverage estimator (ACE)
   # - Jackknife abundance estimator
   # - Jackknife incidence estimator
-# The new method calculates richness based on the spatial Community data: rows=transects, columns=species,
-# values=individual counts
-# Whalen update Oct 31, 2022
-  # - return mean states
-  # - fix a few errors
-  # - return correction terms
-  # - two versions of the estimate
-    # - Omega_not - uses average detection probabilities
-    # - Omega_T - uses Taylor approximation
-# Whalen last update 9 April 2023
-  # - remove Clustering calculations
-  # - add third Omega calculation (Omega, Omega_T, Omega_0 in all)
-  # - add another estimator (Gamma Poisson)
+  # - three versions of the estimator introduced in Tekwa et al. 2023
+    # - Omega - exact estimator, recommended version
+    # - Omega_T - second-order Taylor approximated estimator, useful for quantifying biases from means and variances in occupancy and observed abundance across species
+    # - Omega_not - zeroth-order approximated estimator
+
+# The new method calculates richness based on spatial Community data:
+  # rows=transects, columns=species, values=individual counts
+
+
 
 
 
@@ -40,16 +35,16 @@ Di = expression( 1-(1-((1-exp(-nm/P))*P))^k )
 # d2Di_dnmP = D(D( Di, "nm" ), "P")
 
 # hard code second-order derivatives above for speed
-d2Di_dmn2 = - (k*exp(-mn/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 1))/P - k*exp(-(2*mn)/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 2)*(k - 1)
-d2Di_dP2 = - k*(P*(exp(-mn/P) - 1) + 1)^(k - 2)*(k - 1)*(exp(-mn/P) + (mn*exp(-mn/P))/P - 1)^2 - (k*mn^2*exp(-mn/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 1))/P^3
-d2Di_dmnP = (k*mn*exp(-mn/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 1))/P^2 + k*exp(-mn/P)*(P*(exp(-mn/P) - 1) + 1)^(k - 2)*(k - 1)*(exp(-mn/P) + (mn*exp(-mn/P))/P - 1)
+d2Di_dnm2 = - (k*exp(-nm/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 1))/P - k*exp(-(2*nm)/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 2)*(k - 1)
+d2Di_dP2 = - k*(P*(exp(-nm/P) - 1) + 1)^(k - 2)*(k - 1)*(exp(-nm/P) + (nm*exp(-nm/P))/P - 1)^2 - (k*nm^2*exp(-nm/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 1))/P^3
+d2Di_dnmP = (k*nm*exp(-nm/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 1))/P^2 + k*exp(-nm/P)*(P*(exp(-nm/P) - 1) + 1)^(k - 2)*(k - 1)*(exp(-nm/P) + (nm*exp(-nm/P))/P - 1)
 
 
-numTrans =  nrow(Community) # get number of transects
+numSamplingUnit =  nrow(Community) # get number of transects
 Richness_raw = sum(colSums(Community)>0) # get raw richness
 P_detected = rep(0,ncol(Community)) # array of zeros to record occupancy for each species
 for( species in 1:ncol(Community) ) {
-  P_detected[species] = sum(Community[,species] > 0)/numTrans # occupancy as number of transects occupied divided by number of transects
+  P_detected[species] = sum(Community[,species] > 0)/numSamplingUnit # occupancy as number of transects occupied divided by number of transects
 }
 P_detected[P_detected==0] = NA
 
@@ -130,7 +125,7 @@ if( m == 1){
 
 
 # compute correction terms for Omega_T
-k  = numTrans
+k  = numSamplingUnit
 nm = mean_n_m_detected
 P  = mean_P_detected
 Omega_detectP_terms = c( eval(Di),
