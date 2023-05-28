@@ -1,7 +1,7 @@
 # Richness
-#### R-package "Richness" for asymptotic species richness estimates
+#### R package `Richness` for asymptotic species richness estimates
 
-This R-Package uses spatial abundance data to produce estimated species richness and estimator precision while correcting for observation biases from low occupancies and abundances. The featured estimators include a set from Tekwa et al 2023: 𝛺 (exact estimator, recommended version), 𝛺T (second-order Taylor approximated estimator, useful for quantifying biases from means and variances in occupancy and observed abundance across species), and 𝛺o (zeroth-order approximated estimator). Additionally, standard estimates are produced using Chao1, Chao2, ACE, Jackknife-abundance, Jackknife-incidence, and observed (uncorrected) richness.
+This R Package uses spatial abundance data to produce estimated species richness and estimator precision while correcting for observation biases from low occupancies and abundances. The featured estimators include a set from Tekwa et al 2023: 𝛺 (exact estimator, recommended version), 𝛺T (second-order Taylor approximated estimator, useful for quantifying biases from means and variances in occupancy and observed abundance across species), and 𝛺o (zeroth-order approximated estimator). Additionally, standard estimates are produced using Chao1, Chao2, ACE, Jackknife-abundance, Jackknife-incidence, and observed (uncorrected) richness.
 
 A wrapper function estimateRichness.R allows the user to provide community data as a matrix, data.frame, list, or array. Lists or arrays can be input to compare multiple communities, such as a time series.
 
