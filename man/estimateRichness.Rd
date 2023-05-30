@@ -29,7 +29,7 @@ estimateRichness(Community, boot = FALSE, numBoot = 100,
 %% ...
 }
 \references{
-Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. \emph{Philosophical Transactions of the Royal Society B.} \doi{10.1098/rstb.2022.0181.2022-0187}
+Tekwa, E.W., Whalen, M.A., Martone, P.T. and O'Connor, M.I. (2023) Theory and application of an improved species richness estimator. \emph{Philosophical Transactions of the Royal Society B.} \doi{10.1098/rstb.2022.0187}
 
 References for Chao1, Gamma-Poisson, Chao2, ACE, and Jackknife richness estimators:
 

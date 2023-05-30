@@ -28,4 +28,4 @@ To open help files for functions in R, type:
 
 ## References
 
-Tekwa, E.W., M.A. Whalen, P.T. Martone, & M.I. O’Connor. 2023. Theory and application of an improved species richness estimator. _Philosophical Transactions of the Royal Society B_. https://doi.org/10.1098/rstb.2022.0181.2022-0187
+Tekwa, E.W., M.A. Whalen, P.T. Martone, & M.I. O’Connor. 2023. Theory and application of an improved species richness estimator. _Philosophical Transactions of the Royal Society B_. https://doi.org/10.1098/rstb.2022.0187.
