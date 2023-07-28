@@ -65,10 +65,10 @@ P_detected[P_detected==0] = NA
 # compute on full dataset - means, variances, and covariances
 mean_P_detected = mean(P_detected[P_detected>0], na.rm = TRUE )
 var_P_detected  = var(P_detected[P_detected>0], na.rm = TRUE )
-n_m_detected = colMeans(Community[,colSums(Community)>0])
+n_m_detected = colMeans(as.data.frame(Community[,colSums(Community)>0]))
 mean_n_m_detected = mean(n_m_detected)
-var_n_m_detected  = var(colMeans(Community[,colSums(Community)>0]))
-cov_nm_P_detected = cov( data.frame(x = colMeans(Community[,colSums(Community)>0]), y = na.omit(P_detected)), use = "complete.obs")
+var_n_m_detected  = var(colMeans(as.data.frame(Community[,colSums(Community)>0])))
+cov_nm_P_detected = cov( data.frame(x = colMeans(as.data.frame(Community[,colSums(Community)>0])), y = na.omit(P_detected)), use = "complete.obs")
 if( length(cov_nm_P_detected[,2])>1 ){
   cov_nm_P_detected = cov_nm_P_detected[1,2]
 } else {
@@ -115,7 +115,11 @@ Chao2 = Richness_raw + ((m-1)/m)*q1*(q1-1)/(2*(q2+1)) # Chao2 richness estimator
 S_rare = sum(colSums(Community) <= 10 & colSums(Community) > 0 ) # number of rare species (<=10 individuals)
 S_abund = sum(colSums(Community) > 10) # number of abundant species (>10 individuals)
 n_rare = sum(Community[,colSums(Community) <= 10 & colSums(Community) > 0]) # total number of individuals in rare species
-C_ACE = 1-f1/n_rare # sample coverage estimate
+if( n_rare > 0 ){
+  C_ACE = 1-f1/n_rare # sample coverage estimate
+} else {
+  C_ACE = 1
+}
 wsumfa = 0
 for( a in 1:10 ){
   wsumfa = wsumfa + a*(a-1)*sum(colSums(Community) == a)
